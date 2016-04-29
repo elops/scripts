@@ -47,9 +47,25 @@ def main(path):
     """
 
     sorted_list = file_list(path)
-    for index in xrange(0, len(sorted_list)-1):
+    if len(sorted_list) < 3:
+        print "Found too few files for comparison, need at least 3 files to work with"
+        sys.exit(1)
+
+    for index in xrange(0, len(sorted_list)):
+        # corner cases, 1st item (oldest file)
         if index == 0:
+            next_item = sorted_list[index+1]
+            if item['ctime'] + TIME_DIFF < next_item['ctime']:
+                print item['file']
             continue
+
+        # corner cases, last item (newest file)
+        if index == len(sorted_list):
+            prev_item = sorted_list[index-1]
+            if prev_item['ctime'] + TIME_DIFF < item['ctime']:
+                print item['file']
+            continue
+
         prev_item = sorted_list[index-1]
         next_item = sorted_list[index+1]
         item = sorted_list[index]
