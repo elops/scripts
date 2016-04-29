@@ -52,6 +52,8 @@ def main(path):
         sys.exit(1)
 
     for index in xrange(0, len(sorted_list)):
+        item = sorted_list[index]
+
         # corner cases, 1st item (oldest file)
         if index == 0:
             next_item = sorted_list[index+1]
@@ -68,7 +70,6 @@ def main(path):
 
         prev_item = sorted_list[index-1]
         next_item = sorted_list[index+1]
-        item = sorted_list[index]
 
         if prev_item['ctime'] + TIME_DIFF < item['ctime'] and \
            item['ctime'] + TIME_DIFF < next_item['ctime']:
